@@ -13,9 +13,14 @@ import com.example.lmr.simpleandroidgdf.util.Painter;
 
 public class GameOverState extends State {
     private String playerScore;
+    private String gameOverMessage="GAME OVER";
 
     public GameOverState(int playerScore){
         this.playerScore=playerScore+"";
+        if(playerScore>GameMainActivity.getHighScore()){
+            GameMainActivity.setHighScore(playerScore);
+            gameOverMessage="HIGH SCORE";
+        }
     }
     @Override
     public void init() {
@@ -33,8 +38,9 @@ public class GameOverState extends State {
         painter.fillRect(0,0, GameMainActivity.GAME_WIDTH,GameMainActivity.GAME_HEIGHT);
         painter.setColor(Color.DKGRAY);
         painter.setFont(Typeface.DEFAULT_BOLD,50);
-        painter.drawString("GAME OVER",257,250);
-        painter.drawString("Touch the screen",220,350);
+        painter.drawString(gameOverMessage,257,175);
+        painter.drawString(playerScore,385,250);
+        painter.drawString("Touch the screen.",220,350);
     }
 
     @Override
